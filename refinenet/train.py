@@ -18,13 +18,13 @@ tf.app.flags.DEFINE_float('learning_rate', 0.0001, '')
 tf.app.flags.DEFINE_integer('max_steps', 100000, '')
 tf.app.flags.DEFINE_float('moving_average_decay', 0.997, '')
 tf.app.flags.DEFINE_integer('num_classes', 21, '')
-tf.app.flags.DEFINE_string('checkpoint_path', 'checkpoints/', '')
-tf.app.flags.DEFINE_string('logs_path', 'logs/', '')
+tf.app.flags.DEFINE_string('checkpoint_path', '../checkpoints', '')
+tf.app.flags.DEFINE_string('logs_path', '../logs', '')
 tf.app.flags.DEFINE_boolean('restore', False, 'whether to resotre from checkpoint')
 tf.app.flags.DEFINE_integer('save_checkpoint_steps', 2000, '')
 tf.app.flags.DEFINE_integer('save_summary_steps', 10, '')
-tf.app.flags.DEFINE_string('training_data_path', 'data/pascal_train_val.tfrecords', '')
-tf.app.flags.DEFINE_string('pre_train_model_path', 'data/resnet_v1_101.ckpt', '')
+tf.app.flags.DEFINE_string('training_data_path', '../data/pascal_train_val.tfrecords', '')
+tf.app.flags.DEFINE_string('pre_train_model_path', '../data/resnet_v1_101.ckpt', '')
 tf.app.flags.DEFINE_integer('decay_steps', 40000, '')
 tf.app.flags.DEFINE_integer('decay_rate', 0.1, '')
 FLAGS = tf.app.flags.FLAGS
@@ -60,10 +60,6 @@ def main(argv=None):
     # 模型保存目录
     if not os.path.exists(FLAGS.checkpoint_path):
         os.makedirs(FLAGS.checkpoint_path)
-    elif not FLAGS.restore and os.path.exists(FLAGS.checkpoint_path):
-        shutil.rmtree(FLAGS.checkpoint_path)
-        os.makedirs(FLAGS.checkpoint_path)
-        pass
 
     # 文件队列
     filename_queue = tf.train.string_input_producer([FLAGS.training_data_path], num_epochs=1000)

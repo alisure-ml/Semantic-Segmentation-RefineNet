@@ -9,10 +9,9 @@ from utils.pascal_voc import pascal_segmentation_lut
 from utils.visualization import visualize_segmentation_adaptive
 
 tf.app.flags.DEFINE_string('test_data_path', 'demo', '')
-tf.app.flags.DEFINE_string('gpu_list', '0', '')
 tf.app.flags.DEFINE_integer('num_classes', 21, '')
-tf.app.flags.DEFINE_string('checkpoint_path', 'checkpoints/', '')
-tf.app.flags.DEFINE_string('result_path', 'result/', '')
+tf.app.flags.DEFINE_string('checkpoint_path', '../checkpoints', '')
+tf.app.flags.DEFINE_string('result_path', '../result', '')
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -55,7 +54,6 @@ def main(argv=None):
         shutil.rmtree(FLAGS.result_path)
     os.makedirs(FLAGS.result_path)
 
-    os.environ['CUDA_VISIBLE_DEVICES'] = FLAGS.gpu_list
     pascal_voc_lut = pascal_segmentation_lut()
 
     with tf.get_default_graph().as_default():
